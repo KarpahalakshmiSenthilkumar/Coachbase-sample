@@ -18,6 +18,7 @@
 		C59864592CCA4A4B0009C9CD /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59864582CCA4A4B0009C9CD /* DatabaseManager.swift */; };
 		C598645C2CCA4CCF0009C9CD /* CouchbaseLiteSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C598645B2CCA4CCF0009C9CD /* CouchbaseLiteSwift */; };
 		C598645F2CCA502E0009C9CD /* CustomErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C598645E2CCA502E0009C9CD /* CustomErrors.swift */; };
+		C59864612CCA59B80009C9CD /* SigninView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59864602CCA59B80009C9CD /* SigninView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		C59864552CCA307A0009C9CD /* PatientDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientDetails.swift; sourceTree = "<group>"; };
 		C59864582CCA4A4B0009C9CD /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		C598645E2CCA502E0009C9CD /* CustomErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomErrors.swift; sourceTree = "<group>"; };
+		C59864602CCA59B80009C9CD /* SigninView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				C59864542CCA30240009C9CD /* models */,
 				C598642A2CCA1FE10009C9CD /* Path_couchbase_syncApp.swift */,
 				C598642C2CCA1FE10009C9CD /* ContentView.swift */,
+				C59864602CCA59B80009C9CD /* SigninView.swift */,
 				C598642E2CCA1FE40009C9CD /* Assets.xcassets */,
 				C59864302CCA1FE40009C9CD /* Preview Content */,
 			);
@@ -292,6 +295,7 @@
 			files = (
 				C59864592CCA4A4B0009C9CD /* DatabaseManager.swift in Sources */,
 				C598645F2CCA502E0009C9CD /* CustomErrors.swift in Sources */,
+				C59864612CCA59B80009C9CD /* SigninView.swift in Sources */,
 				C59864562CCA307A0009C9CD /* PatientDetails.swift in Sources */,
 				C598642D2CCA1FE10009C9CD /* ContentView.swift in Sources */,
 				C598642B2CCA1FE10009C9CD /* Path_couchbase_syncApp.swift in Sources */,
