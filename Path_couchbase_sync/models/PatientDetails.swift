@@ -8,12 +8,13 @@
 import Foundation
 
 struct PatientDetails {
+    let type: String = "patient"
     var mrn: String?
     var firstName: String?
     var middleName: String?
     var lastName: String?
     var gender: String?
-    var dateOfBirth: Date?
+    var dateOfBirth: String?
     var admissionNo: String?
-    var admitDate: Date?
+    var admitDate: String?
 }

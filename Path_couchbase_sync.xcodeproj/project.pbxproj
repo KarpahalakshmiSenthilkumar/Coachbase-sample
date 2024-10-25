@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		53B4748D2CCA979D0098BFF1 /* CouchbaseLiteSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 53B4748C2CCA979D0098BFF1 /* CouchbaseLiteSwift */; };
 		C598642B2CCA1FE10009C9CD /* Path_couchbase_syncApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C598642A2CCA1FE10009C9CD /* Path_couchbase_syncApp.swift */; };
 		C598642D2CCA1FE10009C9CD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C598642C2CCA1FE10009C9CD /* ContentView.swift */; };
 		C598642F2CCA1FE40009C9CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C598642E2CCA1FE40009C9CD /* Assets.xcassets */; };
@@ -16,7 +17,6 @@
 		C59864482CCA1FE50009C9CD /* Path_couchbase_syncUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59864472CCA1FE50009C9CD /* Path_couchbase_syncUITestsLaunchTests.swift */; };
 		C59864562CCA307A0009C9CD /* PatientDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59864552CCA307A0009C9CD /* PatientDetails.swift */; };
 		C59864592CCA4A4B0009C9CD /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59864582CCA4A4B0009C9CD /* DatabaseManager.swift */; };
-		C598645C2CCA4CCF0009C9CD /* CouchbaseLiteSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C598645B2CCA4CCF0009C9CD /* CouchbaseLiteSwift */; };
 		C598645F2CCA502E0009C9CD /* CustomErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C598645E2CCA502E0009C9CD /* CustomErrors.swift */; };
 /* End PBXBuildFile section */
 
@@ -58,7 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C598645C2CCA4CCF0009C9CD /* CouchbaseLiteSwift in Frameworks */,
+				53B4748D2CCA979D0098BFF1 /* CouchbaseLiteSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -171,7 +171,7 @@
 			);
 			name = Path_couchbase_sync;
 			packageProductDependencies = (
-				C598645B2CCA4CCF0009C9CD /* CouchbaseLiteSwift */,
+				53B4748C2CCA979D0098BFF1 /* CouchbaseLiteSwift */,
 			);
 			productName = Path_couchbase_sync;
 			productReference = C59864272CCA1FE10009C9CD /* Path_couchbase_sync.app */;
@@ -246,7 +246,7 @@
 			);
 			mainGroup = C598641E2CCA1FE00009C9CD;
 			packageReferences = (
-				C598645A2CCA4CCF0009C9CD /* XCRemoteSwiftPackageReference "couchbase-lite-swift-ee" */,
+				53B4748B2CCA979D0098BFF1 /* XCRemoteSwiftPackageReference "couchbase-lite-swift-ee" */,
 			);
 			productRefGroup = C59864282CCA1FE10009C9CD /* Products */;
 			projectDirPath = "";
@@ -620,20 +620,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		C598645A2CCA4CCF0009C9CD /* XCRemoteSwiftPackageReference "couchbase-lite-swift-ee" */ = {
+		53B4748B2CCA979D0098BFF1 /* XCRemoteSwiftPackageReference "couchbase-lite-swift-ee" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/couchbase/couchbase-lite-swift-ee.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.2.0;
+				kind = exactVersion;
+				version = 3.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		C598645B2CCA4CCF0009C9CD /* CouchbaseLiteSwift */ = {
+		53B4748C2CCA979D0098BFF1 /* CouchbaseLiteSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C598645A2CCA4CCF0009C9CD /* XCRemoteSwiftPackageReference "couchbase-lite-swift-ee" */;
+			package = 53B4748B2CCA979D0098BFF1 /* XCRemoteSwiftPackageReference "couchbase-lite-swift-ee" */;
 			productName = CouchbaseLiteSwift;
 		};
 /* End XCSwiftPackageProductDependency section */

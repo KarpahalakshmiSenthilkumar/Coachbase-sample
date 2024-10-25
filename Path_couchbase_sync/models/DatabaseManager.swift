@@ -1,9 +1,5 @@
-//
-//  DatabaseManager.swift
-//  Path_couchbase_sync
-//
-//  Created by Karpahalakshmi on 24/10/24.
-//
+//  UserProfileQueryDemo
+//  Copyright © 2022 Couchbase Inc. All rights reserved.
 
 import Foundation
 import CouchbaseLiteSwift
@@ -18,20 +14,28 @@ class DatabaseManager {
     }
     var dbChangeListenerToken:ListenerToken?
     
+//    var universityDB:Database? {
+//        get {
+//            return _universitydb
+//        }
+//    }
+    
     // For demo purposes only. In prod apps, credentials must be stored in keychain
     public fileprivate(set) var currentUserCredentials:(user:String,password:String)?
     
     var lastError:Error?
 
     // db name
-    fileprivate let kDBName:String = "patientprofile"
+    fileprivate let kDBName:String = "userprofile"
+    //fileprivate let kUniversityDBName:String = "universities"
     fileprivate let kPrebuiltDBFolder:String = "prebuilt"
     fileprivate var _db:Database?
+    fileprivate var _universitydb:Database?
     
     // replication related
     fileprivate var _pushPullRepl:Replicator?
     fileprivate var _pushPullReplListener:ListenerToken?
-    fileprivate var kRemoteSyncUrl = "ws://localhost:4984/"
+    fileprivate var kRemoteSyncUrl = "ws://localhost:4984"
     
     fileprivate var _applicationDocumentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last
     
@@ -45,6 +49,8 @@ class DatabaseManager {
     }()
     
     func initialize() {
+        print(_applicationSupportDirectory)
+        print(_applicationSupportDirectory)
         //  enableCrazyLevelLogging()
     }
     // Don't allow instantiation . Enforce singleton
@@ -147,11 +153,76 @@ extension DatabaseManager {
     }
 }
 
+// MARK: Prebuilt University Database
+extension DatabaseManager {
+    
+    /*func openPrebuiltDatabase(handler:(_ error:Error?)->Void) {
+        do {
+            var options = DatabaseConfiguration()
+            guard let universityFolderUrl = _applicationSupportDirectory else {
+                fatalError("Could not open Application Support Directory for app!")
+            }
+            let universityFolderPath = universityFolderUrl.path
+            let fileManager = FileManager.default
+            if !fileManager.fileExists(atPath: universityFolderPath) {
+                try fileManager.createDirectory(atPath: universityFolderPath,
+                                                withIntermediateDirectories: true,
+                                                attributes: nil)
+            }
+            // Set the folder path for the CBLite DB
+            options.directory = universityFolderPath
+            
+            print("Will open Prebuilt DB  at path \(universityFolderPath)")
+            // Load the prebuilt "universities" database if it does not exist as the specified folder
+            if Database.exists(withName: kUniversityDBName, inDirectory: universityFolderPath) == false {
+                // Load prebuilt database from App Bundle and copy over to Applications support path
+                if let prebuiltPath = Bundle.main.path(forResource: kUniversityDBName, ofType: "cblite2") {
+                    try Database.copy(fromPath: prebuiltPath, toDatabase: "\(kUniversityDBName)", withConfig: options)
+                    
+                }
+                // Get handle to DB  specified path
+                _universitydb = try Database(name: kUniversityDBName, config: options)
+                
+                // Create indexes to facilitate queries
+                try createUniversityDatabaseIndexes()
+            }
+            else
+            {
+                // Gets handle to existing DB at specified path
+                _universitydb = try Database(name: kUniversityDBName, config: options)
+            }
+            handler(nil)
+        } catch {
+            lastError = error
+            handler(lastError)
+        }
+    }*/
+    
+    /*func closePrebuiltDatabase() -> Bool {
+        do {
+            // Get handle to DB  specified path
+            if let universitydb = self.universityDB {
+                try universitydb.close()
+                _universitydb = nil
+            }
+            return true
+        }
+        catch {
+            return false
+        }
+    }
+    
+    fileprivate func createUniversityDatabaseIndexes()throws {
+        // For searches on type property
+        try _universitydb?.createIndex(IndexBuilder.valueIndex(items:  ValueIndexItem.expression(Expression.property("name")),ValueIndexItem.expression(Expression.property("location"))), withName: "NameLocationIndex")
+    }*/
+}
+
 // MARK: Replication
 extension DatabaseManager {
     func startPushAndPullReplicationForCurrentUser() {
         guard let remoteUrl = URL.init(string: kRemoteSyncUrl) else {
-//            lastError = UserProfileError.RemoteDatabaseNotReachable
+            lastError = UserProfileError.RemoteDatabaseNotReachable
             return
         }
 
@@ -232,3 +303,4 @@ extension DatabaseManager {
         Database.log.console.level = .debug
     }
 }
+
