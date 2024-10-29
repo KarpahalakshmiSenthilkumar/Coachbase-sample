@@ -9,106 +9,55 @@ import SwiftUI
 import CouchbaseLiteSwift
 
 struct ContentView: View {
-    fileprivate var dbMgr: DatabaseManager = DatabaseManager.shared
-    @State private var mrn = ""
-    @State private var firstname = ""
-    @State private var middlename = ""
-    @State private var lastname = ""
-    @State private var gender: String = "Male"
-    @State private var dobDate = Date.now
-    @State private var admitDate = Date.now
-    @State private var admissionNumber = ""
+    @StateObject private var contentViewModel = ContentViewModel()
+    @StateObject private var signinViewModel = SigninViewModel()
     let genderList = ["Male", "Female"]
+    @State private var loggedOff = false
     
     var body: some View {
         NavigationStack {
             VStack {
                 Form {
-                    TextField("Medical Record Number(MRN)", text:$mrn)
+                    TextField("Medical Record Number(MRN)", text:$contentViewModel.mrn)
                     Section(header: Text("Patient Details")) {
-                        TextField("Patient First Name", text: $firstname)
-                        TextField("Patient Middle Name", text: $middlename)
-                        TextField("Patient Last Name", text: $lastname)
+                        TextField("Patient First Name", text: $contentViewModel.firstname)
+                        TextField("Patient Middle Name", text: $contentViewModel.middlename)
+                        TextField("Patient Last Name", text: $contentViewModel.lastname)
                     }
-                    Picker("Gender", selection: $gender) {
+                    Picker("Gender", selection: $contentViewModel.gender) {
                         ForEach(genderList, id: \.self) { gender in
                             Text(gender).tag(gender)
                         }
                     }
-                    DatePicker("DOB", selection: $dobDate, displayedComponents: .date)
-                    TextField("Admission/Encounter Number", text: $admissionNumber)
-                    DatePicker("Admit Date", selection: $admitDate, displayedComponents: .date)
+                    DatePicker("DOB", selection: $contentViewModel.dobDate, displayedComponents: .date)
+                    TextField("Admission/Encounter Number", text: $contentViewModel.admissionNumber)
+                    DatePicker("Admit Date", selection: $contentViewModel.admitDate, displayedComponents: .date)
                 }
                 
                 Button {
                     print("")
-                    save()
+                    contentViewModel.save()
                 } label: {
                     Text("Save")
                 }
                 .padding()
-
+                
             }
             .onAppear {
-                login()
+                contentViewModel.fetchRecordForCurrentUserWithLiveModeEnabled(__: true)
             }
             .navigationTitle("Demographics")
-        }
-    }
-    
-    func login() {
-        dbMgr.openOrCreateDatabaseForUser("demo@example.com", password: "password") { error in
-            print("-------------")
-            print(error?.localizedDescription)
-            print("-------------")
-        }
-    }
-    
-    func save() {
-        let mutableDoc = MutableDocument.init(id: "demo@example.com")
-        var patientRecord = PatientDetails()
-        patientRecord.mrn = "12345"
-        patientRecord.firstName = "Ezhil"
-        patientRecord.lastName = "Adhavan"
-        patientRecord.gender = "Male"
-        patientRecord.dateOfBirth = "21/09/1991"
-        patientRecord.admitDate = "24/10/2024"
-        patientRecord.admissionNo = "9999"
-        
-        mutableDoc.setString(patientRecord.type, forKey: "type")
-        
-        if let mrn = patientRecord.mrn {
-            mutableDoc.setString(mrn, forKey: "mrn")
-        }
-        if let firstName = patientRecord.firstName {
-            mutableDoc.setString(firstName, forKey: "firstName")
-        }
-        if let lastName = patientRecord.lastName {
-            mutableDoc.setString(lastName, forKey: "lastName")
-        }
-        if let gender = patientRecord.gender {
-            mutableDoc.setString(gender, forKey: "gender")
-        }
-        if let dateOfBirth = patientRecord.dateOfBirth {
-            mutableDoc.setString(dateOfBirth, forKey: "dateOfBirth")
-        }
-        if let admitDate = patientRecord.admitDate {
-            mutableDoc.setString(admitDate, forKey: "admitDate")
-        }
-        if let admissionNo = patientRecord.admissionNo {
-            mutableDoc.setString(admissionNo, forKey: "admissionNo")
-        }
-        
-        
-        do {
-            // This will create a document if it does not exist and overrite it if it exists
-            // Using default concurrency control policy of "writes always win"
-            print(dbMgr.db)
-            try dbMgr.db?.saveDocument(mutableDoc)
-            print("Record Saved")
-        }
-        catch {
-            print("Error: \(error.localizedDescription)")
+            .toolbar {
+                Button("LogOff") {
+                    contentViewModel.logOffUser()
+                    DispatchQueue.main.async {
+                        loggedOff = true
+                    }
+                }
+                .navigationDestination(isPresented: $loggedOff) {
+                    SigninView()
+                }
+            }
         }
     }
 }

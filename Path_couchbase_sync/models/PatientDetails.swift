@@ -9,12 +9,13 @@ import Foundation
 
 struct PatientDetails {
     let type: String = "patient"
+    var email: String?
     var mrn: String?
     var firstName: String?
     var middleName: String?
     var lastName: String?
     var gender: String?
-    var dateOfBirth: String?
+    var dateOfBirth: Date?
     var admissionNo: String?
-    var admitDate: String?
+    var admitDate: Date?
 }

@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct Path_couchbase_syncApp: App {
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SigninView()
         }
     }
 }

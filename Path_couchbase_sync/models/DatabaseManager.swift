@@ -20,13 +20,24 @@ class DatabaseManager {
 //        }
 //    }
     
+    func logOff() {
+            // Close the database connection
+            _db = nil
+            
+            // Clear user credentials
+            currentUserCredentials = nil
+            
+            // Optionally, perform additional cleanup
+            print("User logged off successfully.")
+        }
+    
     // For demo purposes only. In prod apps, credentials must be stored in keychain
     public fileprivate(set) var currentUserCredentials:(user:String,password:String)?
     
     var lastError:Error?
 
     // db name
-    fileprivate let kDBName:String = "userprofile"
+    fileprivate let kDBName:String = "patientprofile"
     //fileprivate let kUniversityDBName:String = "universities"
     fileprivate let kPrebuiltDBFolder:String = "prebuilt"
     fileprivate var _db:Database?
@@ -90,6 +101,7 @@ extension DatabaseManager {
             options.directory = userFolderPath
    
             print("Will open/create DB  at path \(userFolderPath)")
+            
             // Create a new DB or get handle to existing DB at specified path
             _db = try Database(name: kDBName, config: options)
             

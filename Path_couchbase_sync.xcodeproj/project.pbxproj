@@ -18,6 +18,9 @@
 		C59864562CCA307A0009C9CD /* PatientDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59864552CCA307A0009C9CD /* PatientDetails.swift */; };
 		C59864592CCA4A4B0009C9CD /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59864582CCA4A4B0009C9CD /* DatabaseManager.swift */; };
 		C598645F2CCA502E0009C9CD /* CustomErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C598645E2CCA502E0009C9CD /* CustomErrors.swift */; };
+		C5BE31D72CD0A9530002110A /* SigninView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BE31D62CD0A9530002110A /* SigninView.swift */; };
+		C5BE31D92CD0AA770002110A /* SigninViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BE31D82CD0AA770002110A /* SigninViewModel.swift */; };
+		C5C1AB772CCE65E9006F7339 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C1AB762CCE65E9006F7339 /* ContentViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +54,9 @@
 		C59864552CCA307A0009C9CD /* PatientDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientDetails.swift; sourceTree = "<group>"; };
 		C59864582CCA4A4B0009C9CD /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		C598645E2CCA502E0009C9CD /* CustomErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomErrors.swift; sourceTree = "<group>"; };
+		C5BE31D62CD0A9530002110A /* SigninView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninView.swift; sourceTree = "<group>"; };
+		C5BE31D82CD0AA770002110A /* SigninViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninViewModel.swift; sourceTree = "<group>"; };
+		C5C1AB762CCE65E9006F7339 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; wrapsLines = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +85,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C53986382CCBC03200240CB7 /* viewmodel */ = {
+			isa = PBXGroup;
+			children = (
+				C5C1AB762CCE65E9006F7339 /* ContentViewModel.swift */,
+				C5BE31D82CD0AA770002110A /* SigninViewModel.swift */,
+			);
+			path = viewmodel;
+			sourceTree = "<group>";
+		};
 		C598641E2CCA1FE00009C9CD = {
 			isa = PBXGroup;
 			children = (
@@ -102,10 +117,12 @@
 		C59864292CCA1FE10009C9CD /* Path_couchbase_sync */ = {
 			isa = PBXGroup;
 			children = (
+				C53986382CCBC03200240CB7 /* viewmodel */,
 				C598645D2CCA50090009C9CD /* utilities */,
 				C59864542CCA30240009C9CD /* models */,
 				C598642A2CCA1FE10009C9CD /* Path_couchbase_syncApp.swift */,
 				C598642C2CCA1FE10009C9CD /* ContentView.swift */,
+				C5BE31D62CD0A9530002110A /* SigninView.swift */,
 				C598642E2CCA1FE40009C9CD /* Assets.xcassets */,
 				C59864302CCA1FE40009C9CD /* Preview Content */,
 			);
@@ -292,9 +309,12 @@
 			files = (
 				C59864592CCA4A4B0009C9CD /* DatabaseManager.swift in Sources */,
 				C598645F2CCA502E0009C9CD /* CustomErrors.swift in Sources */,
+				C5C1AB772CCE65E9006F7339 /* ContentViewModel.swift in Sources */,
+				C5BE31D92CD0AA770002110A /* SigninViewModel.swift in Sources */,
 				C59864562CCA307A0009C9CD /* PatientDetails.swift in Sources */,
 				C598642D2CCA1FE10009C9CD /* ContentView.swift in Sources */,
 				C598642B2CCA1FE10009C9CD /* Path_couchbase_syncApp.swift in Sources */,
+				C5BE31D72CD0A9530002110A /* SigninView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
