@@ -10,7 +10,6 @@ import Foundation
 class SigninViewModel: ObservableObject {
     @Published var username = ""
     @Published var password = ""
-    var dbInitialized = false
     
     var dbMgr:DatabaseManager = DatabaseManager.shared
     
@@ -23,10 +22,8 @@ class SigninViewModel: ObservableObject {
                 self.dbMgr.openOrCreateDatabaseForUser(self.username, password: self.password) { error in
                     if let error = error {
                         print("Failed to open database after user verification: \(error.localizedDescription)")
-                        self.dbInitialized = false
                     } else {
                         print("Database opened successfully for user.")
-                        self.dbInitialized = true
                         // Start replication only after the database opens successfully
                         DatabaseManager.shared.startPushAndPullReplicationForCurrentUser()
                     }

@@ -9,7 +9,8 @@ import SwiftUI
 
 struct SigninView: View {
     @StateObject private var signinViewModel = SigninViewModel()
-    @State private var shouldNavigate = false
+    @Binding var isLoggedIn: Bool
+    
     var body: some View {
         NavigationStack {
             VStack(alignment: .center){
@@ -43,7 +44,7 @@ struct SigninView: View {
                     )
                 Button(action: {
                     signinViewModel.login()
-                    shouldNavigate = true
+                    isLoggedIn = true
                 }) {
                     Text("Signin")
                         .foregroundColor(.white)
@@ -53,11 +54,6 @@ struct SigninView: View {
                         .padding(.bottom,20)
                         .padding(.top, 50)
                 }
-                .navigationDestination(isPresented: $shouldNavigate) {
-                    if signinViewModel.dbInitialized {
-                        ContentView()
-                    }
-                }
                 Spacer()
             }
             .padding()
@@ -66,5 +62,5 @@ struct SigninView: View {
 }
 
 #Preview {
-    SigninView()
+    SigninView(isLoggedIn: .constant(false))
 }

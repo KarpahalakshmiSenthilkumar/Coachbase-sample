@@ -14,7 +14,8 @@ class ContentViewModel: ObservableObject {
     fileprivate var userQueryToken:ListenerToken?
     fileprivate var userQuery:Query?
     fileprivate var record:PatientDetails?
-    
+    fileprivate var isObservingForLoginEvents:Bool = false
+
     @Published var mrn = ""
     @Published var firstname = ""
     @Published var middlename = ""
@@ -23,6 +24,48 @@ class ContentViewModel: ObservableObject {
     @Published var dobDate = Date.now
     @Published var admitDate = Date.now
     @Published var admissionNumber = ""
+    
+    private var isDatabaseReady = false {
+        didSet {
+            if isDatabaseReady {
+                fetchRecordForCurrentUserWithLiveModeEnabled(__: true)
+            }
+        }
+    }
+        
+    init() {
+        initializeDatabase()
+    }
+        
+    private func initializeDatabase() {
+        DispatchQueue.global().async {
+            // Simulate database initialization delay
+            sleep(1) // Replace with actual database setup logic
+                
+            DispatchQueue.main.async {
+                self.isDatabaseReady = true
+            }
+        }
+    }
+    
+    enum AppNotifications {
+        enum loginInSuccess : String{
+            case name = "LoginSuccess"
+            enum userInfoKeys : String{
+                case user = "user"
+            }
+        }
+        enum loginInFailure :String {
+            case name = "LoginFailure"
+            enum userInfoKeys : String {
+                case user = "user"
+            }
+        }
+        
+        enum logout:String {
+            case name = "LogOut"
+        }
+    }
     
     lazy var userProfileDocId: String = {
         let userId = dbMgr.currentUserCredentials?.user
@@ -122,48 +165,21 @@ class ContentViewModel: ObservableObject {
         }
     }
     
-//    func login(username: String, password: String) {
-//        // Try opening the database for the user
-//        dbMgr.openOrCreateDatabaseForUser(username, password: password) { [weak self] error in
-//            guard let self = self else { return }
-//            
-//            if let error = error {
-//                // If the error is unauthorized, create the user
-//                if (error as NSError).code == 401 {
-//                    print("User not found. Creating a new user in Sync Gateway...")
-//                    
-//                    // Call function to create user in Sync Gateway
-//                    self.createUserInSyncGateway(username: username, password: password) { success, error in
-//                        if success {
-//                            print("User created successfully.")
-//                            // Try opening the database again after user creation
-//                            self.dbMgr.openOrCreateDatabaseForUser(username, password: password) { error in
-//                                if let error = error {
-//                                    print("Failed to open database after user creation: \(error.localizedDescription)")
-//                                } else {
-//                                    print("Database opened successfully for user.")
-//                                    DatabaseManager.shared.startPushAndPullReplicationForCurrentUser()
-//                                }
-//                            }
-//                        } else {
-//                            print("Error creating user: \(error?.localizedDescription ?? "Unknown error")")
-//                        }
-//                    }
-//                } else {
-//                    print("Login failed with error: \(error.localizedDescription)")
-//                }
-//            } else {
-//                print("Database opened successfully for user.")
-//                DatabaseManager.shared.startPushAndPullReplicationForCurrentUser()
-//            }
-//        }
-//    }
+    func deregisterNotificationObservers() {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: AppNotifications.loginInSuccess.name.rawValue), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: AppNotifications.loginInFailure.name.rawValue), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: AppNotifications.logout.name.rawValue), object: nil)
+        isObservingForLoginEvents = false
+    }
     
-    func logOffUser() {        
-        let logged = DatabaseManager.shared.closeDatabaseForCurrentUser()
-        if logged{
-            print("User logged off.")
-        }
+    func logOffUser() {   
+        self.deregisterNotificationObservers()
+        self.dbMgr.stopAllReplicationForCurrentUser()
+        let _ = DatabaseManager.shared.closeDatabaseForCurrentUser()
+//        let logged = DatabaseManager.shared.closeDatabaseForCurrentUser()
+//        if logged{
+//            print("User logged off.")
+//        }
     }
     
     func save() {

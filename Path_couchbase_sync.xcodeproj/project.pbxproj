@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		53B4748D2CCA979D0098BFF1 /* CouchbaseLiteSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 53B4748C2CCA979D0098BFF1 /* CouchbaseLiteSwift */; };
+		C563E6702CD2182D003CCDE9 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C563E66F2CD2182D003CCDE9 /* MainView.swift */; };
 		C598642B2CCA1FE10009C9CD /* Path_couchbase_syncApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C598642A2CCA1FE10009C9CD /* Path_couchbase_syncApp.swift */; };
 		C598642D2CCA1FE10009C9CD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C598642C2CCA1FE10009C9CD /* ContentView.swift */; };
 		C598642F2CCA1FE40009C9CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C598642E2CCA1FE40009C9CD /* Assets.xcassets */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C563E66F2CD2182D003CCDE9 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		C59864272CCA1FE10009C9CD /* Path_couchbase_sync.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Path_couchbase_sync.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C598642A2CCA1FE10009C9CD /* Path_couchbase_syncApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Path_couchbase_syncApp.swift; sourceTree = "<group>"; };
 		C598642C2CCA1FE10009C9CD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				C5BE31D62CD0A9530002110A /* SigninView.swift */,
 				C598642E2CCA1FE40009C9CD /* Assets.xcassets */,
 				C59864302CCA1FE40009C9CD /* Preview Content */,
+				C563E66F2CD2182D003CCDE9 /* MainView.swift */,
 			);
 			path = Path_couchbase_sync;
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C59864592CCA4A4B0009C9CD /* DatabaseManager.swift in Sources */,
+				C563E6702CD2182D003CCDE9 /* MainView.swift in Sources */,
 				C598645F2CCA502E0009C9CD /* CustomErrors.swift in Sources */,
 				C5C1AB772CCE65E9006F7339 /* ContentViewModel.swift in Sources */,
 				C5BE31D92CD0AA770002110A /* SigninViewModel.swift in Sources */,

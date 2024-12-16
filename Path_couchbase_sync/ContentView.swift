@@ -12,12 +12,12 @@ struct ContentView: View {
     @StateObject private var contentViewModel = ContentViewModel()
     @StateObject private var signinViewModel = SigninViewModel()
     let genderList = ["Male", "Female"]
-    @State private var loggedOff = false
+    @Binding var isLoggedIn: Bool
     
     var body: some View {
         NavigationStack {
             VStack {
-                Form {
+               Form {
                     TextField("Medical Record Number(MRN)", text:$contentViewModel.mrn)
                     Section(header: Text("Patient Details")) {
                         TextField("Patient First Name", text: $contentViewModel.firstname)
@@ -41,21 +41,13 @@ struct ContentView: View {
                     Text("Save")
                 }
                 .padding()
-                
-            }
-            .onAppear {
-                contentViewModel.fetchRecordForCurrentUserWithLiveModeEnabled(__: true)
+                    
             }
             .navigationTitle("Demographics")
             .toolbar {
                 Button("LogOff") {
                     contentViewModel.logOffUser()
-                    DispatchQueue.main.async {
-                        loggedOff = true
-                    }
-                }
-                .navigationDestination(isPresented: $loggedOff) {
-                    SigninView()
+                    isLoggedIn = false
                 }
             }
         }
@@ -63,5 +55,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView(isLoggedIn: .constant(true))
 }
