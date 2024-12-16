@@ -1,9 +1,5 @@
-//
-//  DatabaseManager.swift
-//  Path_couchbase_sync
-//
-//  Created by Karpahalakshmi on 24/10/24.
-//
+//  UserProfileQueryDemo
+//  Copyright © 2022 Couchbase Inc. All rights reserved.
 
 import Foundation
 import CouchbaseLiteSwift
@@ -18,6 +14,17 @@ class DatabaseManager {
     }
     var dbChangeListenerToken:ListenerToken?
     
+    func logOff() {
+            // Close the database connection
+            _db = nil
+            
+            // Clear user credentials
+            currentUserCredentials = nil
+            
+            // Optionally, perform additional cleanup
+            print("User logged off successfully.")
+        }
+    
     // For demo purposes only. In prod apps, credentials must be stored in keychain
     public fileprivate(set) var currentUserCredentials:(user:String,password:String)?
     
@@ -25,13 +32,15 @@ class DatabaseManager {
 
     // db name
     fileprivate let kDBName:String = "patientprofile"
+    //fileprivate let kUniversityDBName:String = "universities"
     fileprivate let kPrebuiltDBFolder:String = "prebuilt"
     fileprivate var _db:Database?
+    fileprivate var _universitydb:Database?
     
     // replication related
     fileprivate var _pushPullRepl:Replicator?
     fileprivate var _pushPullReplListener:ListenerToken?
-    fileprivate var kRemoteSyncUrl = "ws://localhost:4984/"
+    fileprivate var kRemoteSyncUrl = "ws://localhost:4984"
     
     fileprivate var _applicationDocumentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last
     
@@ -45,6 +54,8 @@ class DatabaseManager {
     }()
     
     func initialize() {
+        print(_applicationSupportDirectory)
+        print(_applicationSupportDirectory)
         //  enableCrazyLevelLogging()
     }
     // Don't allow instantiation . Enforce singleton
@@ -84,6 +95,7 @@ extension DatabaseManager {
             options.directory = userFolderPath
    
             print("Will open/create DB  at path \(userFolderPath)")
+            
             // Create a new DB or get handle to existing DB at specified path
             _db = try Database(name: kDBName, config: options)
             
@@ -151,7 +163,7 @@ extension DatabaseManager {
 extension DatabaseManager {
     func startPushAndPullReplicationForCurrentUser() {
         guard let remoteUrl = URL.init(string: kRemoteSyncUrl) else {
-//            lastError = UserProfileError.RemoteDatabaseNotReachable
+            lastError = UserProfileError.RemoteDatabaseNotReachable
             return
         }
 
@@ -232,3 +244,4 @@ extension DatabaseManager {
         Database.log.console.level = .debug
     }
 }
+

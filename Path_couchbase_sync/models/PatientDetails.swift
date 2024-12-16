@@ -8,6 +8,8 @@
 import Foundation
 
 struct PatientDetails {
+    let type: String = "patient"
+    var email: String?
     var mrn: String?
     var firstName: String?
     var middleName: String?
