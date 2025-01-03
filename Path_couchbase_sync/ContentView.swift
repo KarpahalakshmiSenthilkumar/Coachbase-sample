@@ -36,7 +36,9 @@ struct ContentView: View {
                 
                 Button {
                     print("")
-                    contentViewModel.save()
+                    Task {
+                        try await contentViewModel.saveUserDate()
+                    }
                 } label: {
                     Text("Save")
                 }
@@ -45,10 +47,18 @@ struct ContentView: View {
             }
             .navigationTitle("Demographics")
             .toolbar {
-                Button("LogOff") {
-                    contentViewModel.logOffUser()
-                    isLoggedIn = false
+                Button {
+                    Task {
+                        try await contentViewModel.logOff()
+                        isLoggedIn = false
+                    }
+                } label: {
+                    Text("LogOff")
                 }
+//                Button("LogOff") {
+//                    contentViewModel.logOffUser()
+//                    isLoggedIn = false
+//                }
             }
         }
     }

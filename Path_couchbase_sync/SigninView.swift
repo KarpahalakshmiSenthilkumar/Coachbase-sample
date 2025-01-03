@@ -42,10 +42,12 @@ struct SigninView: View {
                         RoundedRectangle(cornerRadius: 6)
                             .stroke(Color.gray)
                     )
-                Button(action: {
-                    signinViewModel.login()
-                    isLoggedIn = true
-                }) {
+                Button {
+                    Task {
+                        try await signinViewModel.signIn()
+                        isLoggedIn = true
+                    }
+                } label: {
                     Text("Signin")
                         .foregroundColor(.white)
                         .frame(width: 380, height: 50)
@@ -54,6 +56,18 @@ struct SigninView: View {
                         .padding(.bottom,20)
                         .padding(.top, 50)
                 }
+//                Button(action: {
+//                    signinViewModel.signIn()
+////                    isLoggedIn = true
+//                }) {
+//                    Text("Signin")
+//                        .foregroundColor(.white)
+//                        .frame(width: 380, height: 50)
+//                        .background(Color.blue)
+//                        .cornerRadius(6)
+//                        .padding(.bottom,20)
+//                        .padding(.top, 50)
+//                }
                 Spacer()
             }
             .padding()
